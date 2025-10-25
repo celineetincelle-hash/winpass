@@ -1,0 +1,57 @@
+# Configuration OVH compatible - SANS directives PHP
+# Active le moteur de réécriture d'URL
+RewriteEngine On
+
+# Redirige toutes les requêtes vers index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Sécurité
+<Files ~ "^\.ht">
+    Order allow,deny
+    Deny from all
+</Files>
+
+Options -Indexes
+
+# Headers de sécurité
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Configuration PHP alternative - PLUS COMPATIBLE
+<IfModule mod_php.c>
+    php_value display_errors 0
+    php_value log_errors 1
+    php_value error_log /homez.2167/winpask/www/logs/php_errors.log
+    php_value max_execution_time 30
+    php_value memory_limit 256M
+    php_value upload_max_filesize 20M
+    php_value post_max_size 20M
+</IfModule>
+
+# Pour PHP 7.x
+<IfModule mod_php7.c>
+    php_value display_errors 0
+    php_value log_errors 1
+    php_value error_log /homez.2167/winpask/www/logs/php_errors.log
+    php_value max_execution_time 30
+    php_value memory_limit 256M
+    php_value upload_max_filesize 20M
+    php_value post_max_size 20M
+</IfModule>
+
+# Pour PHP 8.x
+<IfModule mod_php8.c>
+    php_value display_errors 0
+    php_value log_errors 1
+    php_value error_log /homez.2167/winpask/www/logs/php_errors.log
+    php_value max_execution_time 30
+    php_value memory_limit 256M
+    php_value upload_max_filesize 20M
+    php_value post_max_size 20M
+</IfModule>
